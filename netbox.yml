@@ -1,0 +1,30 @@
+- name: Install and Configure Netbox
+  hosts: netbox
+  gather_facts: no
+  vars:
+    netboxpath: '/var/tmp/netbox-docker'
+  
+  tasks:
+  - name: Get Netbox Code
+    git:
+      repo: 'https://github.com/netbox-community/netbox-docker.git'
+      dest: '{{ netboxpath }}'
+      version: release
+  
+  - name: Copy override file
+    copy:
+      src: files/docker-compose.override.yml
+      dest: '{{ netboxpath }}/docker-compose.override.yml'
+
+ #need some more logic here or maybe a module to actually use docker
+ #on a remove box correctly
+ #this is not very idempotent
+  - name: Pull docker image
+    command: docker-compose pull
+    args:
+      chdir: '{{ netboxpath }}'
+
+  - name: Start it up
+    command: docker-compose up -d
+    args:
+      chdir: '{{ netboxpath }}'

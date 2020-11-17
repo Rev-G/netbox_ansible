@@ -1,0 +1,7 @@
+version: '3.4'
+services:
+  nginx:
+    ports:
+    - 8000:8080
+  netbox:
+    image: netboxcommunity/netbox:v2.9-ldap
