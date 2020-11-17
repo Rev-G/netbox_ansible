@@ -1,0 +1,8 @@
+### inspec ###
+*.lock
+
+### VisualStudioCode ###
+.vscode/*
+
+### MACOS ###
+.DS_Store
